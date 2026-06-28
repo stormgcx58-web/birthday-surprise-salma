@@ -1,39 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
-  plugins: [react()],
-  build: {
-    target: 'esnext',
-    sourcemap: false,
-    cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000,
-
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes('node_modules')) return;
-
-          if (id.includes('react')) {
-            return 'react-vendor';
-          }
-
-          if (id.includes('framer-motion')) {
-            return 'motion';
-          }
-
-          if (
-            id.includes('three') ||
-            id.includes('@react-three')
-          ) {
-            return 'three';
-          }
-
-          if (id.includes('@mui')) {
-            return 'mui';
-          }
-        },
-      },
-    },
-  },
-});
+  plugins: [
+    react(),
+    tailwindcss(),
+    legacy({
+      targets: ['defaults', 'iOS >= 12'],
+    }),
+  ],
+})
