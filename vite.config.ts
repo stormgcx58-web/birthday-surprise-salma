@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-    legacy({
-      targets: ['defaults', 'iOS >= 12'],
-    }),
-  ],
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'motion': ['framer-motion'],
+          'three': ['three', '@react-three/fiber'],
+          'mui': ['@mui/material'],
+        }
+      }
+    }
+  }
 })
