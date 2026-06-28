@@ -103,3 +103,17 @@
 .candle-flame {
   animation: candleFlicker 0.3s ease-in-out infinite;
 }
+/* إخفاء الـ scrollbar القبيح */
+.glass::-webkit-scrollbar {
+  width: 4px;
+}
+.glass::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass::-webkit-scrollbar-thumb {
+  background: rgba(176, 106, 255, 0.3);
+  border-radius: 10px;
+}
+.glass::-webkit-scrollbar-thumb:hover {
+  background: rgba(176, 106, 255, 0.6);
+}

@@ -15,6 +15,7 @@ export default function MessageScene({ onNext }: MessageSceneProps) {
   const lineIndex = useRef(0);
   const charIndex = useRef(0);
   const rafRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const lines = config.birthdayMessage;
 
@@ -46,6 +47,11 @@ export default function MessageScene({ onNext }: MessageSceneProps) {
     return () => { if (rafRef.current) clearTimeout(rafRef.current); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ينزل تلقائياً مع كل سطر جديد
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [visibleLines, currentTyping]);
 
   return (
     <motion.div
@@ -81,7 +87,7 @@ export default function MessageScene({ onNext }: MessageSceneProps) {
 
         <div
           className="text-white text-lg md:text-xl leading-loose text-center"
-          style={{ fontFamily: '"Roboto", sans-serif', textShadow: '0 0 15px rgba(176,106,255,0.3)' }}
+          style={{ fontFamily: '"Dancing Script", cursive', textShadow: '0 0 15px rgba(176,106,255,0.3)' }}
         >
           <AnimatePresence>
             {visibleLines.map((line, i) => (
@@ -117,6 +123,9 @@ export default function MessageScene({ onNext }: MessageSceneProps) {
               </motion.span>
             </div>
           )}
+
+          {/* هذا يجعل الصفحة تنزل تلقائياً */}
+          <div ref={bottomRef} />
         </div>
 
         <AnimatePresence>
@@ -136,6 +145,9 @@ export default function MessageScene({ onNext }: MessageSceneProps) {
                   color: '#b06aff',
                   px: 5,
                   py: 1.5,
+                  borderRadius: '50px',
+                  textTransform: 'none',
+                  fontSize: '1rem',
                   '&:hover': {
                     borderColor: '#e0aaff',
                     color: '#e0aaff',

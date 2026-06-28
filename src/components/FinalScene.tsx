@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ReactConfetti from 'react-confetti';
+import Button from '@mui/material/Button';
 import StarryBackground from './StarryBackground';
 import { config } from '../config';
 
@@ -203,6 +204,36 @@ export default function FinalScene() {
             You deserve every beautiful thing in this world.
           </p>
           <p className="text-purple-300 text-sm mt-3 italic">— {config.senderName}</p>
+        </motion.div>
+
+        {/* Replay button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 3 }}
+        >
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={() => window.location.reload()}
+            sx={{
+              borderColor: 'rgba(176,106,255,0.5)',
+              color: '#e0aaff',
+              px: 5,
+              py: 1.5,
+              borderRadius: '50px',
+              textTransform: 'none',
+              fontSize: '1rem',
+              backdropFilter: 'blur(10px)',
+              '&:hover': {
+                borderColor: '#b06aff',
+                background: 'rgba(176,106,255,0.1)',
+                boxShadow: '0 0 20px rgba(176,106,255,0.3)',
+              },
+            }}
+          >
+            🔄 Replay
+          </Button>
         </motion.div>
       </div>
     </motion.div>

@@ -68,7 +68,7 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             style={{
-              background: 'radial-gradient(ellipse at 50% 70%, rgba(176,106,255,0.25) 0%, rgba(218,112,214,0.15) 40%, transparent 70%)',
+              background: 'radial-gradient(ellipse at 50% 70%, rgba(176,106,255,0.3) 0%, rgba(218,112,214,0.15) 40%, transparent 70%)',
               zIndex: 1,
             }}
           />
@@ -117,7 +117,7 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
         ))}
       </AnimatePresence>
 
-      <div className="relative flex flex-col items-center gap-6" style={{ zIndex: 10 }}>
+      <div className="relative flex flex-col items-center gap-4" style={{ zIndex: 10 }}>
 
         <motion.h2
           className="text-white text-2xl md:text-3xl font-bold text-center"
@@ -129,6 +129,7 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
           {blown ? '🎉 Happy Birthday! 🎉' : '🎂 Make a Wish! 🎂'}
         </motion.h2>
 
+        {/* الكيكة الـ 3D */}
         <motion.div
           className="relative cursor-pointer select-none"
           onClick={blowCandles}
@@ -136,10 +137,12 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
           whileTap={{ scale: 0.97 }}
           animate={celebrating ? { scale: [1, 1.05, 1] } : {}}
           transition={celebrating ? { duration: 0.5, repeat: 3 } : {}}
+          style={{ filter: 'drop-shadow(0 20px 40px rgba(176,106,255,0.4))' }}
         >
           <div className="flex flex-col items-center">
+
             {/* الشموع */}
-            <div className="flex gap-3 mb-1 items-end">
+            <div className="flex gap-2 mb-1 items-end" style={{ zIndex: 2, position: 'relative' }}>
               {candles.map((_, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <AnimatePresence>
@@ -149,106 +152,161 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
                         transition={{ duration: 0.3, delay: i * 0.05 }}
                         className="candle-flame"
                         style={{
-                          width: 10,
-                          height: 16,
-                          background: 'radial-gradient(ellipse at 50% 70%, #ffd700, #ff8c00, #ff4500)',
+                          width: 8,
+                          height: 14,
+                          background: 'radial-gradient(ellipse at 50% 70%, #fff7aa, #ffd700, #ff8c00)',
                           borderRadius: '50% 50% 40% 40%',
-                          boxShadow: '0 0 8px rgba(255,165,0,0.8), 0 0 16px rgba(255,165,0,0.4)',
+                          boxShadow: '0 0 8px rgba(255,200,0,0.9), 0 0 20px rgba(255,150,0,0.5)',
                           marginBottom: 2,
                         }}
                       />
                     )}
                   </AnimatePresence>
+                  {/* جسم الشمعة مع تأثير 3D */}
                   <div
                     style={{
-                      width: 8,
-                      height: 28,
-                      background: `hsl(${270 + (i * 15) % 60}, 80%, 70%)`,
+                      width: 7,
+                      height: 26,
+                      background: `linear-gradient(90deg, 
+                        hsl(${270 + (i * 15) % 60}, 90%, 85%) 0%,
+                        hsl(${270 + (i * 15) % 60}, 80%, 70%) 40%,
+                        hsl(${270 + (i * 15) % 60}, 70%, 55%) 100%)`,
                       borderRadius: 4,
-                      boxShadow: blown ? 'none' : `0 0 6px hsl(${270 + (i * 15) % 60}, 80%, 70%)`,
+                      boxShadow: blown ? 'none' : `0 0 8px hsl(${270 + (i * 15) % 60}, 80%, 70%)`,
                     }}
                   />
                 </div>
               ))}
             </div>
 
-            {/* طبقات الكيكة */}
-            <div className="flex flex-col items-center">
-              {/* الطبقة العلوية */}
+            {/* الطبقة العلوية */}
+            <div style={{ position: 'relative', width: 210 }}>
+              {/* الجانب العلوي — وجه الطبقة */}
               <div
                 style={{
-                  width: 200,
+                  width: 210,
                   height: 55,
-                  background: 'linear-gradient(135deg, #c4b5fd, #a855f7)',
-                  borderRadius: '40px 40px 12px 12px',
-                  boxShadow: '0 0 20px rgba(176,106,255,0.4)',
+                  background: 'linear-gradient(135deg, #d8b4fe 0%, #a855f7 50%, #7c3aed 100%)',
+                  borderRadius: '40px 40px 0 0',
                   position: 'relative',
                   overflow: 'hidden',
+                  boxShadow: 'inset 0 -4px 8px rgba(0,0,0,0.2), inset 0 4px 8px rgba(255,255,255,0.2)',
                 }}
               >
-                {[15, 35, 55, 75, 85].map((x, i) => (
+                {/* الكريمة */}
+                {[12, 28, 45, 62, 78].map((x, i) => (
                   <div
                     key={i}
                     style={{
                       position: 'absolute',
-                      top: 0,
+                      top: -2,
                       left: `${x}%`,
-                      width: 12,
-                      height: 18,
-                      background: 'rgba(255,255,255,0.6)',
+                      width: 14,
+                      height: 22,
+                      background: 'linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.6))',
                       borderRadius: '0 0 50% 50%',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                     }}
                   />
                 ))}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm tracking-wider">Happy Birthday</span>
+                  <span style={{
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    letterSpacing: '0.05em',
+                    textShadow: '0 1px 3px rgba(0,0,0,0.3)',
+                  }}>
+                    Happy Birthday
+                  </span>
                 </div>
               </div>
-
-              {/* الطبقة الوسطى */}
+              {/* الجانب السفلي — عمق الطبقة */}
               <div
                 style={{
-                  width: 240,
-                  height: 60,
-                  background: 'linear-gradient(135deg, #9b4dff, #7c3aed)',
-                  borderRadius: '8px',
-                  marginTop: 2,
-                  boxShadow: '0 0 20px rgba(176,106,255,0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 8,
-                }}
-              >
-                {['💜', '🌸', '💜', '🌸', '💜'].map((e, i) => (
-                  <span key={i} style={{ fontSize: 16 }}>{e}</span>
-                ))}
-              </div>
-
-              {/* الطبقة السفلية */}
-              <div
-                style={{
-                  width: 280,
-                  height: 65,
-                  background: 'linear-gradient(135deg, #b06aff, #da70d6)',
-                  borderRadius: '8px 8px 20px 20px',
-                  marginTop: 2,
-                  boxShadow: '0 8px 30px rgba(176,106,255,0.3)',
-                }}
-              />
-
-              {/* الطبق */}
-              <div
-                style={{
-                  width: 310,
-                  height: 16,
-                  background: 'linear-gradient(135deg, #f5f3ff, #ede9fe)',
-                  borderRadius: '50%',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                  marginTop: 4,
+                  width: 210,
+                  height: 12,
+                  background: 'linear-gradient(180deg, #6d28d9, #4c1d95)',
+                  borderRadius: '0 0 4px 4px',
                 }}
               />
             </div>
+
+            {/* الطبقة الوسطى */}
+            <div style={{ position: 'relative', width: 255, marginTop: 2 }}>
+              <div
+                style={{
+                  width: 255,
+                  height: 58,
+                  background: 'linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #7e22ce 100%)',
+                  borderRadius: '4px 4px 0 0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  boxShadow: 'inset 0 -4px 8px rgba(0,0,0,0.2), inset 0 4px 8px rgba(255,255,255,0.1)',
+                }}
+              >
+                {['💜', '🌸', '💜', '🌸', '💜'].map((e, i) => (
+                  <span key={i} style={{ fontSize: 18 }}>{e}</span>
+                ))}
+              </div>
+              {/* عمق الطبقة */}
+              <div
+                style={{
+                  width: 255,
+                  height: 14,
+                  background: 'linear-gradient(180deg, #581c87, #3b0764)',
+                  borderRadius: '0 0 4px 4px',
+                }}
+              />
+            </div>
+
+            {/* الطبقة السفلية */}
+            <div style={{ position: 'relative', width: 295, marginTop: 2 }}>
+              <div
+                style={{
+                  width: 295,
+                  height: 65,
+                  background: 'linear-gradient(135deg, #e879f9 0%, #a855f7 40%, #7c3aed 100%)',
+                  borderRadius: '4px 4px 0 0',
+                  boxShadow: 'inset 0 -4px 8px rgba(0,0,0,0.2), inset 0 6px 10px rgba(255,255,255,0.15)',
+                }}
+              />
+              {/* عمق الطبقة */}
+              <div
+                style={{
+                  width: 295,
+                  height: 18,
+                  background: 'linear-gradient(180deg, #6b21a8, #3b0764)',
+                  borderRadius: '0 0 8px 8px',
+                }}
+              />
+            </div>
+
+            {/* الطبق */}
+            <div
+              style={{
+                width: 330,
+                height: 18,
+                background: 'linear-gradient(180deg, #f5f3ff 0%, #ddd6fe 50%, #c4b5fd 100%)',
+                borderRadius: '50%',
+                boxShadow: '0 8px 20px rgba(0,0,0,0.4), 0 2px 4px rgba(255,255,255,0.2)',
+                marginTop: 2,
+              }}
+            />
+
+            {/* ظل الكيكة على الأرض */}
+            <div
+              style={{
+                width: 280,
+                height: 12,
+                background: 'radial-gradient(ellipse, rgba(100,0,200,0.4) 0%, transparent 70%)',
+                borderRadius: '50%',
+                marginTop: 6,
+                filter: 'blur(6px)',
+              }}
+            />
           </div>
         </motion.div>
 
@@ -301,6 +359,8 @@ export default function CakeScene({ onNext }: CakeSceneProps) {
                   fontWeight: 700,
                   px: 5,
                   py: 1.5,
+                  borderRadius: '50px',
+                  textTransform: 'none',
                   boxShadow: '0 0 30px rgba(176,106,255,0.5)',
                   '&:hover': {
                     background: 'linear-gradient(135deg, #c77dff, #9b4dff)',
